@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Evaluating mathematical reasoning of foundation models in visual contexts">
+  <meta name="keywords" content="MathVista, Math Vista">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Are Video Models Ready as Zero-Shot Reasoners?</title>
+  
+
+
+  <!-- <link rel="icon" href="./static/images/0.png"> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
+  <script type="text/javascript" src="static/js/sort-table.js" defer></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/explorer-index.js"></script>
+  <script src="./static/js/question_card.js"></script>
+
+  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./data/results/output_folders.js" defer></script>
+  <script src="./data/results/model_scores.js" defer></script>
+
+  <script src="./visualizer/data/data_public.js" defer></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> -->
+      <!-- @PAN TODO: consider adding links? -->
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://mathvista.github.io/">
+            <b>MathVista</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://mathverse-cuhk.github.io/">
+            <b>MathVerse</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://github.com/OpenGVLab/LLaMA-Adapter">
+            <b>LLaMA-Adapter (V2)</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://github.com/Alpha-VLLM/LLaMA2-Accessory/tree/main/SPHINX">
+            <b>SPHINX-X</b> <p style="font-size:18px; display: inline; margin-left: 5px;">🔥</p>
+          </a>
+          <a class="navbar-item" href="https://github.com/OpenGVLab/LLaMA-Adapter/tree/main/imagebind_LLM">
+            ImageBind-LLM
+          </a>
+          <a class="navbar-item" href="https://github.com/Alpha-VLLM/LLaMA2-Accessory/tree/main/SPHINX">
+            SPHINX
+          </a>
+          <a class="navbar-item" href="https://github.com/ZiyuGuo99/Point-Bind_Point-LLM">
+            Point-Bind & Point-LLM
+          </a>
+          <a class="navbar-item" href="https://github.com/ZrrSkywalker/Personalize-SAM">
+            PerSAM
+          </a>
+          <a class="navbar-item" href="https://github.com/mathllm/MathCoder">
+            MathCoder
+          </a>
+          <a class="navbar-item" href="https://wangk.org/publications/1_iclr2024_csv/">
+            CSV
+          </a>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title is-bold">
+            <!-- <img src="static/images/0.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
+            <span class="mathvista" style="vertical-align: middle">Are Video Models Ready as Zero-Shot Reasoners?</span>
+            </h1>
+          <h2 class="subtitle is-3 publication-subtitle">
+            An Empirical Study with the MME-COF Benchmark
+          </h2>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ziyuguo99.github.io/">Ziyu Guo*</a><sup style="color:#6fbf73;">1</sup>,
+            </span>
+            <span class="author-block">
+              Xinyan Chen*<sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              Renrui Zhang*<sup style="color:#6fbf73;">2</sup><sup>‡</sup>,
+            </span>
+            <span class="author-block">
+              Ruichuan An*<sup style="color:#6fbf73;">3</sup>,
+            </span>
+            <span class="author-block">
+              Yu Qi*<sup style="color:#6fbf73;">4</sup>,
+            </span>
+            <br>
+            <span class="author-block">
+              Xiangtai Li<sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              Manyuan Zhang<sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://caraj7.github.io/">Dongzhi Jiang</a><sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              Hongsheng Li<sup style="color:#6fbf73;">2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cse.cuhk.edu.hk/~pheng/1.html">Pheng-Ann Heng</a><sup style="color:#6fbf73;">1</sup>
+            </span>
+          </div>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <sup style="color:#6fbf73;">1</sup>CUHK IMIXR&nbsp;&nbsp;&amp;&nbsp;&nbsp;
+              <sup style="color:#6fbf73;">2</sup>MMLab&nbsp;&nbsp;&nbsp;
+              <sup style="color:#6fbf73;">3</sup>Peking University&nbsp;&nbsp;&nbsp;
+              <sup style="color:#6fbf73;">4</sup>Northeastern University
+            </span>
+          </div>
+          
+          <div class="is-size-6 publication-authors" style="margin-top:6px;">
+            <span class="author-block">
+              <sup>*</sup>Equal Contribution&nbsp;&nbsp;&nbsp;&nbsp;
+              <sup>‡</sup>Corresponding Author
+            </span>
+          </div>
+          
+
+          <!-- <section> -->
+            <!-- <div class="section" id="org-banners" style="display:fle">
+              <a href="https://www.ucla.edu/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/ucla.png" style="height:3em">
+              </a>
+              <a href="https://www.washington.edu/" target="blank" class="ext-link">
+                  <img class="center-block org-banner" src="static/images/uw.png" style="height:3em">
+              </a>
+              <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+                  <img class="center-block org-banner" src="static/images/microsoft.png" style="height:3em">
+              </a>
+            </div> -->
+          <!-- </section> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <!-- @PAN TODO: change links -->
+                <a href="https://video-cof.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="https://video-cof.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://video-cof.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://video-cof.github.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <!-- <i class="far fa-images"></i> -->
+                      <p style="font-size:18px">🤗</p>
+                      <!-- 🔗 -->
+                  </span>
+                  <span>MME-COF</span>
+                </a>
+              </span> 
+              <!-- Visualization Link. -->
+              <!-- <span class="link-block">
+                <a href="https://mathverse-cuhk.github.io/#visualization"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🔮</p>
+                  </span>
+                  <span>Visualize</span>
+                </a>
+              </span> -->
+              <!-- Leaderboard Link. -->
+              <span class="link-block">
+                <a href="https://video-cof.github.io/#leaderboard"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🏆</p>
+                  </span>
+                  <span>Leaderboard (Coming Soon)</span>
+                </a>
+              </span>
+
+              <!-- Twitter Link. -->
+              <!-- <span class="link-block">
+                <a href="https://twitter.com/lupantech/status/1717313355780964608"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"> -->
+                      <!-- <i class="far fa-images"></i> -->
+                      <!-- 💻🔗 -->
+                      <!-- <p style="font-size:18px">🌐</p> -->
+                  <!-- </span>
+                  <span>Twitter</span>
+                </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container" style="margin-bottom: 2vh;">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Introduction</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recent video generation models can produce high-fidelity, temporally coherent videos, indicating that they may encode substantial world knowledge. Beyond realistic synthesis, they also exhibit emerging behaviors indicative of visual perception, modeling, and manipulation. Yet, an important question still remains: Are video models ready to serve as zero-shot reasoners in challenging visual reasoning scenarios? In this work, we conduct an empirical study to comprehensively investigate this question, focusing on the leading and popular Veo-3. We evaluate its reasoning behavior across 12 dimensions, including spatial, geometric, physical, temporal, and embodied logic, systematically characterizing both its strengths and failure modes. To standardize this study, we curate the evaluation data into MME-COF, a compact benchmark that enables in-depth and thorough assessment of Chain-of-Frame (CoF) reasoning. Our findings reveal that while current video models demonstrate promising reasoning patterns on short-horizon spatial coherence, fine-grained grounding, and locally consistent dynamics, they remain limited in long-horizon causal reasoning, strict geometric constraints, and abstract logic. Overall, they are not yet reliable as standalone zero-shot reasoners, but exhibit encouraging signs as complementary visual engines alongside dedicated reasoning models.
+          </p>
+          <!-- <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 0.5em;"><b>Knowledge Free:</b> basic problems with minimal necessary contextual information.</li>
+            <li style="margin-bottom: 0.5em;"><b>Knowledge Rich</b>: problems with scientific background information.</li>
+            <li style="margin-bottom: 0.5em;"><b>Knowledge Rich</b>: problems with advanced, professional-level scientific information.</li>
+            <li style="margin-bottom: 0.5em;"><b>Vision Rich</b>: problems that prioritizes visual cues over textual content to evaluate visual comprehension.</li>
+            <li style="margin-bottom: 0.5em;"><b>Text Only</b>: problems with only texual inforamtion and without images.</li>
+            <li style="margin-bottom: 0.5em;"><b>Vision Only</b>: problems where textual problems rendered within the images and evaluate the model's ability through images alone.</li>
+          </ul> -->
+          <!-- <p>
+            <img src="static/images/0.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+            <span class="mathvista">SciVerse</span> aims to evaluate MLLMs' reasoning ability with pre-existing scientific knowledge and their sensitivity to the content stipulated in the questions. This not only measures how effectively MLLMs can utilize their inherent scientific understanding, but also assesses their ability to integrate and reason with given scientific knowledge in real-world scenarios. Unlike existing benchmarks, which often overlook the depth and multi-modal nature of scientific understanding, SciVerse addresses the complex challenges encountered in actual scientific analysis, providing a nuanced analysis of MLLMs' strengths and limitations in both knowledge integration and practical application.
+          </p> -->
+        </div>
+      </div>
+    </div>
+</div><br><br>
+<!-- <div class="columns is-centered">
+    <div class="content has-text-centered">
+      <img src="static/images/Intro_v5_00.jpg" alt="data-overview" style="max-width: 48%;"/>
+      <p> 
+        Overview of Five Problem Versions and our Scientific CoT Evaluation Strategy in <img src="static/images/0.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
+        <span class="mathvista">SciVerse</span>.<br/>
+      </p> 
+    </div>
+</div> -->
+</section>
+
+
+<section>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.cuhk.edu.hk/chinese/index.html" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/cuhk.png">
+    </a>
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.pku.edu.cn/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/pku.png">
+    </a>
+  <!-- <div class="section" id="org-banners" style="display:flex"> -->
+    <!-- <a href="https://www.ucla.edu/" target="_blank" rel="external"> -->
+        <!-- <img class="center-block org-banner" src="static/images/ucla.png"> -->
+    <!-- </a> -->
+    <!-- <a href="https://www.washington.edu/" target="blank" class="ext-link">
+        <img class="center-block org-banner" src="static/images/uw.png">
+    </a>
+    <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/microsoft.png">
+    </a> -->
+  </div>
+</section>
+
+
+<footer class="footer">
+  <!-- <div class="container"> -->
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  <!-- </div> -->
+</footer>
+
+</body>
+</html>
