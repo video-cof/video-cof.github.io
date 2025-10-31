@@ -3,13 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Evaluating mathematical reasoning of foundation models in visual contexts">
-  <meta name="keywords" content="MathVista, Math Vista">
+        content="Are Video Models Ready as Zero-Shot Reasoners? An Empirical Study with the MME-COF Benchmark">
+  <meta name="keywords" content="MME-COF, Video Reasoning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title> Are Video Models Ready as Zero-Shot Reasoners?</title>
   
-
-
   <!-- <link rel="icon" href="./static/images/0.png"> -->
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
@@ -21,6 +19,78 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="stylesheet" href="./static/css/leaderboard.css">
+
+  <style>
+    /* Align Question and Video Prompt sections horizontally across columns */
+    .columns.is-vcentered {
+      align-items: flex-start;
+    }
+    
+    .columns.is-vcentered .column {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Question sections with wrapper div - set consistent height */
+    .columns.is-vcentered .column .question-section {
+      min-height: 5.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Question content inside wrapper - ensure consistent height */
+    .columns.is-vcentered .column .question-section > p.is-size-7 {
+      min-height: 3.5rem;
+      display: block;
+    }
+    
+    /* Video Prompt sections with wrapper div - set consistent height */
+    .columns.is-vcentered .column .prompt-section {
+      min-height: 6.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Video Prompt content inside wrapper - ensure consistent height */
+    .columns.is-vcentered .column .prompt-section > p.is-size-7 {
+      min-height: 5rem;
+      display: block;
+    }
+    
+    /* For columns WITHOUT wrapper divs - match heights with wrapped versions */
+    /* Question label */
+    .columns.is-vcentered .column > p.has-text-weight-semibold:nth-of-type(1) {
+      margin-bottom: 0.5rem !important;
+    }
+    
+    /* Question content - match wrapper div content */
+    .columns.is-vcentered .column > p.is-size-7:nth-of-type(2) {
+      min-height: 3.5rem;
+      margin-bottom: 1rem !important;
+      display: block;
+    }
+    
+    /* Video Prompt label */
+    .columns.is-vcentered .column > p.has-text-weight-semibold:nth-of-type(3) {
+      margin-bottom: 0.5rem !important;
+    }
+    
+    /* Video Prompt content - match wrapper div content */
+    .columns.is-vcentered .column > p.is-size-7:nth-of-type(4) {
+      min-height: 5rem;
+      margin-bottom: 1rem !important;
+      display: block;
+    }
+    
+    /* Push images to bottom */
+    .columns.is-vcentered .column img {
+      margin-top: auto;
+    }
+
+    .takeaway.message.is-info {
+      border-left: none !important;
+      padding-left: 0 !important;
+    }
+
+  </style>
 
   <!-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bulma.min.css" rel="stylesheet">
   <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script> -->
@@ -105,7 +175,7 @@
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title is-bold">
+          <h1 class="title is-1 publication-title is-bold" style="font-size: 2.8rem;">
             <!-- <img src="static/images/0.png" style="width:1em;vertical-align: middle" alt="Logo"/> -->
             <span class="mathvista" style="vertical-align: middle">Are Video Models Ready as Zero-Shot Reasoners?</span>
             </h1>
@@ -114,35 +184,35 @@
           </h2>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://ziyuguo99.github.io/">Ziyu Guo*</a><sup style="color:#6fbf73;">1</sup>,
+              <a href="https://ziyuguo99.github.io/">Ziyu Guo*</a><sup style="color:#6fbf73;">1</sup><sup>†</sup>,
             </span>
             <span class="author-block">
-              Xinyan Chen*<sup style="color:#6fbf73;">2</sup>,
+              <a href="https://scholar.google.com/citations?user=Ii38p5oAAAAJ&hl=zh-CN">Xinyan Chen*</a><sup style="color:#6fbf73;">2</sup>,
             </span>
             <span class="author-block">
-              Renrui Zhang*<sup style="color:#6fbf73;">2</sup><sup>‡</sup>,
+              <a href="https://zrrskywalker.github.io/">Renrui Zhang*</a><sup style="color:#6fbf73;">2</sup><sup>‡</sup>,
             </span>
             <span class="author-block">
-              Ruichuan An*<sup style="color:#6fbf73;">3</sup>,
+              <a href="https://arctanxarc.github.io/">Ruichuan An*</a><sup style="color:#6fbf73;">3</sup>,
             </span>
             <span class="author-block">
-              Yu Qi*<sup style="color:#6fbf73;">4</sup>,
+              <a href="https://scholar.google.com/citations?user=UZSbtlsAAAAJ&hl=en">Yu Qi*</a><sup style="color:#6fbf73;">4</sup>,
             </span>
             <br>
             <span class="author-block">
-              Xiangtai Li<sup style="color:#6fbf73;">2</sup>,
+              <a href="https://lxtgh.github.io/">Xiangtai Li</a><sup style="color:#6fbf73;">2</sup>,
             </span>
             <span class="author-block">
-              Manyuan Zhang<sup style="color:#6fbf73;">2</sup>,
+              <a href="https://manyuan97.github.io/">Manyuan Zhang</a><sup style="color:#6fbf73;">2</sup>,
             </span>
             <span class="author-block">
               <a href="https://caraj7.github.io/">Dongzhi Jiang</a><sup style="color:#6fbf73;">2</sup>,
             </span>
             <span class="author-block">
-              Hongsheng Li<sup style="color:#6fbf73;">2</sup>,
+              <a href="http://www.ee.cuhk.edu.hk/~hsli/">Hongsheng Li</a><sup style="color:#6fbf73;">2</sup>,
             </span>
             <span class="author-block">
-              <a href="https://www.cse.cuhk.edu.hk/~pheng/1.html">Pheng-Ann Heng</a><sup style="color:#6fbf73;">1</sup>
+              <a href="https://www.cse.cuhk.edu.hk/~pheng/">Pheng-Ann Heng</a><sup style="color:#6fbf73;">1</sup>
             </span>
           </div>
           
@@ -158,6 +228,7 @@
           <div class="is-size-6 publication-authors" style="margin-top:6px;">
             <span class="author-block">
               <sup>*</sup>Equal Contribution&nbsp;&nbsp;&nbsp;&nbsp;
+              <sup>†</sup>Project Lead&nbsp;&nbsp;&nbsp;&nbsp;
               <sup>‡</sup>Corresponding Author
             </span>
           </div>
@@ -181,8 +252,7 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <!-- @PAN TODO: change links -->
-                <a href="https://video-cof.github.io/"
+                <a href="http://arxiv.org/abs/2510.26802"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
@@ -228,19 +298,19 @@
                       <p style="font-size:18px">🤗</p>
                       <!-- 🔗 -->
                   </span>
-                  <span>MME-COF</span>
+                  <span>MME-COF (Coming Soon)</span>
                 </a>
               </span> 
               <!-- Visualization Link. -->
-              <!-- <span class="link-block">
-                <a href="https://mathverse-cuhk.github.io/#visualization"
+              <span class="link-block">
+                <a href="https://video-cof.github.io/#visualization"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <p style="font-size:18px">🔮</p>
                   </span>
                   <span>Visualize</span>
                 </a>
-              </span> -->
+              </span>
               <!-- Leaderboard Link. -->
               <span class="link-block">
                 <a href="https://video-cof.github.io/#leaderboard"
@@ -283,32 +353,455 @@
           <p>
             Recent video generation models can produce high-fidelity, temporally coherent videos, indicating that they may encode substantial world knowledge. Beyond realistic synthesis, they also exhibit emerging behaviors indicative of visual perception, modeling, and manipulation. Yet, an important question still remains: Are video models ready to serve as zero-shot reasoners in challenging visual reasoning scenarios? In this work, we conduct an empirical study to comprehensively investigate this question, focusing on the leading and popular Veo-3. We evaluate its reasoning behavior across 12 dimensions, including spatial, geometric, physical, temporal, and embodied logic, systematically characterizing both its strengths and failure modes. To standardize this study, we curate the evaluation data into MME-COF, a compact benchmark that enables in-depth and thorough assessment of Chain-of-Frame (CoF) reasoning. Our findings reveal that while current video models demonstrate promising reasoning patterns on short-horizon spatial coherence, fine-grained grounding, and locally consistent dynamics, they remain limited in long-horizon causal reasoning, strict geometric constraints, and abstract logic. Overall, they are not yet reliable as standalone zero-shot reasoners, but exhibit encouraging signs as complementary visual engines alongside dedicated reasoning models.
           </p>
-          <!-- <ul style="list-style-type: none; padding: 0;">
-            <li style="margin-bottom: 0.5em;"><b>Knowledge Free:</b> basic problems with minimal necessary contextual information.</li>
-            <li style="margin-bottom: 0.5em;"><b>Knowledge Rich</b>: problems with scientific background information.</li>
-            <li style="margin-bottom: 0.5em;"><b>Knowledge Rich</b>: problems with advanced, professional-level scientific information.</li>
-            <li style="margin-bottom: 0.5em;"><b>Vision Rich</b>: problems that prioritizes visual cues over textual content to evaluate visual comprehension.</li>
-            <li style="margin-bottom: 0.5em;"><b>Text Only</b>: problems with only texual inforamtion and without images.</li>
-            <li style="margin-bottom: 0.5em;"><b>Vision Only</b>: problems where textual problems rendered within the images and evaluate the model's ability through images alone.</li>
+          
+          <!-- <p>Our main contributions are summarized as follows:</p>
+          <ul style="list-style-type: none; padding: 0;">
+            <li style="margin-bottom: 0.5em;"><b>A Comprehensive Empirical Study. </b> We provide <em>the first</em> investigation of video models (Veo-3) to analyze their visual reasoning potential, detailing representative successes, characteristic errors, and the conditions under which CoF reasoning emerges, holds, or breaks. </li>
+            <li style="margin-bottom: 0.5em;"><b>The MME-CoF Benchmark. </b>
+              We curate <em>MME-CoF</em>, a compact benchmark providing a standardized taxonomy and an evaluation protocol aligned with CoF reasoning, enabling consistent and category-wise assessment beyond surface-level visual fidelity.</li>
+            <li style="margin-bottom: 0.5em;"><b>Insights and Directions. </b>We summarize common <em>success patterns</em> (e.g. short-horizon coherence and stable spatial layout) and <em>failure patterns</em> (e.g. long-horizon degradation, violations of basic geometry/physics, and temporal logic), making clear when the behavior reflects genuine reasoning versus pattern replay. </li>
           </ul> -->
-          <!-- <p>
-            <img src="static/images/0.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
-            <span class="mathvista">SciVerse</span> aims to evaluate MLLMs' reasoning ability with pre-existing scientific knowledge and their sensitivity to the content stipulated in the questions. This not only measures how effectively MLLMs can utilize their inherent scientific understanding, but also assesses their ability to integrate and reason with given scientific knowledge in real-world scenarios. Unlike existing benchmarks, which often overlook the depth and multi-modal nature of scientific understanding, SciVerse addresses the complex challenges encountered in actual scientific analysis, providing a nuanced analysis of MLLMs' strengths and limitations in both knowledge integration and practical application.
-          </p> -->
         </div>
       </div>
     </div>
-</div><br><br>
-<!-- <div class="columns is-centered">
+</div>
+<br>
+<div class="columns is-centered">
     <div class="content has-text-centered">
-      <img src="static/images/Intro_v5_00.jpg" alt="data-overview" style="max-width: 48%;"/>
+      <img src="static/images/intro.png" alt="introduction" style="max-width: 48%;"/>
       <p> 
-        Overview of Five Problem Versions and our Scientific CoT Evaluation Strategy in <img src="static/images/0.png" style="width:1.0em;vertical-align: middle" alt="Logo"/>
-        <span class="mathvista">SciVerse</span>.<br/>
+        <b>Overview of Our Study on the Reasoning Potential of Video Models.</b>
       </p> 
     </div>
-</div> -->
+</div>
 </section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 mathvista">
+    <span class="mathvista" style="vertical-align: middle">Deep-Dive Analysis on Veo-3</span>
+  </h1>
+  </div>
+</section>
+
+
+
+<!--
+Requires Bulma + bulma-carousel assets. Place this inside your page body.
+-->
+<style>
+  /* keep all gifs at a consistent visual height while preserving aspect */
+  .video-gif {
+    height: 220px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: inline-block;
+  }
+</style>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            We provide <em>the first</em> investigation of video models (Veo-3) to analyze their visual reasoning potential, detailing representative successes, characteristic errors, and the conditions under which CoF reasoning emerges, holds, or breaks. 
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Reasoning Video Showcase</h2>
+        <div id="results-carousel" class="carousel results-carousel">
+        <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Visual Detail Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/visual_detail_reasoning/1_videos/generated_video_5.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_detail_reasoning/2_videos/generated_video_6.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_detail_reasoning/3_videos/generated_video_2.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_detail_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 can produce locally coherent, short-horizon trace animations in simple, low-branching scenarios, but it does not reliably execute long-horizon plans or rule-grounded sequences. 
+          </div>
+        </article>
+
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Visual Trace Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/visual_trace_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_trace_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+          <div class="column"><img class="video-gif" src="static/images/videos/visual_trace_reasoning/6_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_trace_reasoning/7_videos/generated_video_1.gif" alt="case 6" /></div><div class="column"><img class="video-gif" src="static/images/videos/visual_trace_reasoning/8_videos/generated_video_1.gif" alt="case 7" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 can produce locally coherent, short-horizon trace animations in simple, low-branching scenarios, but it does not reliably execute long-horizon plans or rule-grounded sequences. 
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Real-world Spatial Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/real_world_spatial_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/real_world_spatial_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/real_world_spatial_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/real_world_spatial_reasoning/5_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/real_world_spatial_reasoning/6_videos/generated_video_1.gif" alt="case 6" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            While Veo-3 exhibits an emerging ability for simple real-world spatial reasoning, its capability remains insufficient for handling more complex spatial understanding tasks.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">3D Geometry Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/3D_geometry_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/3D_geometry_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/3D_geometry_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div>
+        </div>
+        
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/3D_geometry_reasoning/4_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/3D_geometry_reasoning/5_videos/generated_video_1.gif" alt="case 6" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 exhibits emerging reasoning potential on basic 3D transformations but breaks down on complex or multi-step geometry, often yielding misaligned or self-intersecting structures. Its 3D geometric reasoning remains fragile, revealing substantial gaps in its ability to function as a reliable 3D geometry reasoner.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">2D Geometry Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/5_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/6_videos/generated_video_1.gif" alt="case 6" /></div><div class="column"><img class="video-gif" src="static/images/videos/2D_geometry_reasoning/7_videos/generated_video_1.gif" alt="case 7" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 shows initial 2D geometric reasoning ability but still falls short of consistent, constraint-aware geometric understanding, remaining far from a robust geometric reasoner.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Physics-based Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/5_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/physics_based_reasoning/6_videos/generated_video_1.gif" alt="case 6" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 often generates visually plausible short-term dynamics, but it systematically fails to preserve quantitative physical constraints (energy, momentum), causal ordering, and contact mechanics in frictional, force-driven, or mechanically constrained scenarios. Thus, its outputs are somewhat useful for qualitative illustration but are not reliable for quantitative physics inference or causal prediction.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Rotation Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/rotation_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/rotation_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/rotation_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/rotation_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 exhibits only a superficial understanding of rotation reasoning. While it can approximate small planar rotations, it fails to preserve geometric consistency under larger or compound transformations.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Table and Chart Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/table_and_chart_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/table_and_chart_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/table_and_chart_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/table_and_chart_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 demonstrates emerging competence and potential in structured visual understanding, but still falls short of functioning as a precise and reliable chart-table reasoner.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Object Counting Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div><div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/4_videos/generated_video_1.gif" alt="case 4" /></div>
+        </div>
+        
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/5_videos/generated_video_1.gif" alt="case 5" /></div><div class="column"><img class="video-gif" src="static/images/videos/object_counting_reasoning/6_videos/generated_video_1.gif" alt="case 6" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 demonstrates basic counting capability but lacks the spatial control and robustness required for reliable object enumeration in dynamic or complex scenes.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">GUI Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/gui_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/gui_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/gui_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3 demonstrates a limited awareness of GUI click actions, imitating interaction behaviors without fully grasping the underlying functional logic.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Embodied Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/embodied_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/embodied_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/embodied_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3's capabilities are currently limited to basic object recognition rather than true embodied reasoning. It lacks the necessary planning and stability to reliably interpret and act upon dynamic or spatially constrained instructions, indicating its limitations in understanding and reasoning of real-world interactions.
+          </div>
+        </article>
+      </div>
+    
+      <div class="box m-5">
+        <div class="content has-text-centered">
+          <h3 class="subtitle is-5">Medical Reasoning</h3>
+          
+        <div class="columns is-vcentered" style="margin-top: 1.5rem;">
+          <div class="column"><img class="video-gif" src="static/images/videos/medical_reasoning/1_videos/generated_video_1.gif" alt="case 1" /></div><div class="column"><img class="video-gif" src="static/images/videos/medical_reasoning/2_videos/generated_video_1.gif" alt="case 2" /></div><div class="column"><img class="video-gif" src="static/images/videos/medical_reasoning/3_videos/generated_video_1.gif" alt="case 3" /></div>
+        </div>
+        
+        </div>
+        <article class="message is-info takeaway mt-4">
+          <div class="message-body has-text-left">
+            Veo-3's failure to handle the reasoning in the medical domain, causing distortion even on simple zoom-ins, highlights its limited grasp of specialized, non-general knowledge. 
+          </div>
+        </article>
+      </div>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered m-6">
+      <div class="column is-full has-text-centered content">
+        <h2 class="title is-3">Illustrations with Prompt and Question</h2>
+        
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Visual Detail Reasoning</h3>
+              <img src="static/images/figures/visual_detail.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Visual Trace Reasoning (Part I)</h3>
+              <img src="static/images/figures/tracing1.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Visual Trace Reasoning (Part II)</h3>
+              <img src="static/images/figures/tracing2.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Real-world Spatial Reasoning</h3>
+              <img src="static/images/figures/spatial.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">3D Geometry Reasoning (Part I)</h3>
+              <img src="static/images/figures/3d_geo1.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">3D Geometry Reasoning (Part II)</h3>
+              <img src="static/images/figures/3d_geo2.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">2D Geometry Reasoning (Part I)</h3>
+              <img src="static/images/figures/2d_geo1.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">2D Geometry Reasoning (Part II)</h3>
+              <img src="static/images/figures/2d_geo2.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Physics-based Reasoning</h3>
+              <img src="static/images/figures/physics.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Rotation Reasoning</h3>
+              <img src="static/images/figures/rotation.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Table and Chart Reasoning</h3>
+              <img src="static/images/figures/chart_table.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Object Counting Reasoning (Part I)</h3>
+              <img src="static/images/figures/counting1.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Object Counting Reasoning (Part II)</h3>
+              <img src="static/images/figures/counting2.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">GUI Reasoning</h3>
+              <img src="static/images/figures/gui.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Embodied Reasoning</h3>
+              <img src="static/images/figures/embodied_v1.png" alt="" width="60%"/>
+            </div>
+          </div>
+          <div class="box m-5">
+            <div class="content has-text-centered">
+              <h3 class="subtitle is-5">Medical Reasoning</h3>
+              <img src="static/images/figures/medical.png" alt="" width="60%"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body has-text-centered">
+  <h1 class="title is-1 mathvista">
+    <span class="mathvista" style="vertical-align: middle"><span class="mathvista">MME-CoF</span> Benchmark</span>
+  </h1>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            We curate <em>MME-CoF</em>, a compact benchmark providing a standardized taxonomy and an evaluation protocol aligned with CoF reasoning, enabling consistent and category-wise assessment beyond surface-level visual fidelity.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column" style="margin-right: -20rem;">
+        <div class="content has-text-centered">
+          <img src="static/images/radar.png" alt="evaluation radar map" style="max-width: 50%;"/>
+          <p> 
+            Evaluation Radar Map on <span class="mathvista">MME-CoF</span>.<br/>
+          </p> 
+        </div>
+      </div>
+      <div class="column" style="margin-right: -20rem;">
+        <div class="content has-text-centered">
+          <img src="static/images/category.png" alt="category distribution" style="max-width: 42%;"/>
+          <p> 
+            Category Distribution of <span class="mathvista">MME-CoF</span>.<br/>
+          </p> 
+        </div>
+      </div>
+      <div class="column">
+        <div class="content has-text-centered">
+          <img src="static/images/wordcloud.png" alt="wordcloud" style="max-width: 42%;"/>
+          <p>
+              Word Cloud of <span class="mathvista">MME-CoF</span>.<br/>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 
 
 <section>
@@ -320,16 +813,9 @@
     <a href="https://www.pku.edu.cn/" target="_blank" rel="external">
         <img class="center-block org-banner" src="static/images/pku.png">
     </a>
-  <!-- <div class="section" id="org-banners" style="display:flex"> -->
-    <!-- <a href="https://www.ucla.edu/" target="_blank" rel="external"> -->
-        <!-- <img class="center-block org-banner" src="static/images/ucla.png"> -->
-    <!-- </a> -->
-    <!-- <a href="https://www.washington.edu/" target="blank" class="ext-link">
-        <img class="center-block org-banner" src="static/images/uw.png">
-    </a>
-    <a href="https://www.microsoft.com/en-us/research/" target="_blank" rel="external">
-        <img class="center-block org-banner" src="static/images/microsoft.png">
-    </a> -->
+  <div class="section" id="org-banners" style="display:flex">
+    <a href="https://www.neu.edu.cn/" target="_blank" rel="external">
+        <img class="center-block org-banner" src="static/images/neu.png">
   </div>
 </section>
 
