@@ -1426,12 +1426,12 @@
 
 <script>
   document.getElementById("copyBibtex").addEventListener("click", function () {
-    const text = `@article{guo2025mme-cof,
-    title={Are Video Models Ready as Zero-Shot Reasoners? An Empirical Study with the MME-COF Benchmark},
-    author={Guo, Ziyu and Chen, Xinyan and Zhang, Renrui and An, Ruichuan and Qi, Yu and Jiang, Dongzhi and Li, Xiangtai and Zhang, Manyuan and Li, Hongsheng and Heng, Pheng-Ann},
-    journal={arXiv preprint arXiv:2510.26802},
-    year={2025}
-  }`;
+    const text = `@article{guo2025video,
+  title={Are Video Models Ready as Zero-Shot Reasoners? An Empirical Study with the MME-CoF Benchmark},
+  author={Guo, Ziyu and Chen, Xinyan and Zhang, Renrui and An, Ruichuan and Qi, Yu and Jiang, Dongzhi and Li, Xiangtai and Zhang, Manyuan and Li, Hongsheng and Heng, Pheng-Ann},
+  journal={arXiv preprint arXiv:2510.26802},
+  year={2025}
+}`;
     navigator.clipboard.writeText(text).then(()=>{
       const btn = document.getElementById("copyBibtex");
       btn.textContent = "Copied!";
